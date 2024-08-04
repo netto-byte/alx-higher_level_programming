@@ -18,6 +18,4 @@ if __name__ == "__main__":
     x_request_id = get_x_request_id(url)
     if x_request_id:
         print(x_request_id)
-    else:
-        print("X-Request-Id not found")
 
