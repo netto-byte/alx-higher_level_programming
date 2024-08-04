@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 """Takes a URL as an argument and displays the value of the
 'X-Request-Id' variable found in the header of the response.
+#!/usr/bin/python3
 """
-
+import sys
 import urllib.request
-from sys import argv
 
-def main():
-    url = argv[1]
-    with urllib.request.urlopen(url) as response:
-        for header in response.getheaders():
-            if header[0] == 'X-Request-Id':
-                print(header[1])
-                break
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    url = sys.argv[1]
 
+    request = urllib.request.Request(url)
+    with urllib.request.urlopen(request) as response:
+        print(dict(response.headers).get("X-Request-Id"))"""
