@@ -3,11 +3,19 @@
 Usage: ./2-post_email.py <URL> <email>
   - Displays the body of the response.
 """
-def fetch_and_print_content(url):
-    """Fetches the content of the given URL and prints it."""
-    try:
-        with urllib.request.urlopen(url) as response:
-            content = response.read().decode('utf-8')
-            print(content)
-    except urllib.error.HTTPError as e:
-        print(f"Error code: {e.code}")
+if __name__ == "__main__":
+    from urllib.request import Request, urlopen
+    import urllib.parse as parse
+    from sys import argv
+
+    url = argv[1]
+    email = argv[2]
+
+    values = {'email': email}
+    data = parse.urlencode(values)
+    data = data.encode('ascii')
+    req = Request(url, data)
+
+    with urlopen(req) as response:
+        html_page = response.read()
+        print("{}".format(html_page.decode('utf-8')))
